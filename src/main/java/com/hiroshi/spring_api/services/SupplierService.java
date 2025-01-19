@@ -7,6 +7,7 @@ import com.hiroshi.spring_api.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SupplierService {
@@ -20,7 +21,7 @@ public class SupplierService {
         return supplierRepository.save(supplier);
     }
 
-    public Optional<SupplierEntity> getSupplierById(String id) {
+    public Optional<SupplierEntity> getSupplierById(UUID id) {
         return supplierRepository.findById(id);
     }
 
@@ -32,7 +33,7 @@ public class SupplierService {
         return supplierRepository.save(supplierEntity);
     }
 
-    public void deleteSupplier(String id) {
+    public void deleteSupplier(UUID id) {
         supplierRepository.deleteById(id);
     }
 }

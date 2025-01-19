@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 public class ProductService {
     @Autowired
@@ -32,7 +34,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public ProductEntity getProduct(String id) {
+    public ProductEntity getProduct(UUID id) {
         return productRepository.findById(id).orElse(null);
     }
 
@@ -40,7 +42,7 @@ public class ProductService {
         return productRepository.save(productEntity);
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
 

@@ -1,26 +1,29 @@
 package com.hiroshi.spring_api.dtos;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class CreateProductDTO {
 
-    @NotBlank
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
     @NotBlank(message = "Descrição é obrigatória")
     private String description;
 
-    @NotBlank
+    @NotNull(message = "O preço não pode ser nulo")
+    @DecimalMin(value = "0.0", inclusive = false, message = "O preço deve ser maior que zero")
     private BigDecimal price;
 
-    @NotBlank
-    private String supplierId;
+    @NotNull(message = "Fornecedor é obrigatório")
+    private UUID supplierId;
 
 }

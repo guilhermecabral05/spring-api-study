@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -17,9 +19,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Iterable<ProductEntity>> getAllProducts() {
+    public ResponseEntity<Map<String,Iterable<ProductEntity>>> getAllProducts() {
         Iterable<ProductEntity> products = productService.getProducts();
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(Map.of("products", products));
     }
 
     @PostMapping
