@@ -1,9 +1,12 @@
 package com.hiroshi.spring_api.controllers;
 
+import com.hiroshi.spring_api.dtos.CreateProductDTO;
 import com.hiroshi.spring_api.entities.ProductEntity;
 import com.hiroshi.spring_api.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +23,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public String createNewProduct(@ResponseBody ProductEntity productEntity) {
-        productService.createProduct()
-        return "Hello World 12312312312 w";
+    @Validated
+    public ResponseEntity<ProductEntity> createNewProduct(@Valid @RequestBody CreateProductDTO product) {
+        ProductEntity createdProduct = productService.createProduct(product);
+        return ResponseEntity.ok(createdProduct);
     }
 
     @PutMapping("{id}")

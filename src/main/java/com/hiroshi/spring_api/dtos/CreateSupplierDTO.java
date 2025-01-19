@@ -9,18 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateProductDTO {
-
+public class CreateSupplierDTO {
     @NotBlank
     private String name;
-
-    @NotBlank(message = "Descrição é obrigatória")
-    private String description;
-
-    @NotBlank
-    private BigDecimal price;
-
-    @NotBlank
-    private String supplierId;
-
 }
