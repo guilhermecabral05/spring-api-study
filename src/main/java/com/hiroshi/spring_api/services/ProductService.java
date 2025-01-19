@@ -18,7 +18,7 @@ public class ProductService {
 
     public ProductEntity createProduct(CreateProductDTO product) {
 
-        SupplierEntity supplier = supplierService.getSupplierById(product   .getSupplierId()).orElse(null);
+        SupplierEntity supplier = supplierService.getSupplierById(product.getSupplierId()).orElse(null);
 
         ProductEntity createdProduct = new ProductEntity();
         createdProduct.setName(createdProduct.getName());
