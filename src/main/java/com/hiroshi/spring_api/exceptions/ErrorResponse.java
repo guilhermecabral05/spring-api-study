@@ -9,6 +9,6 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @Data
 public class ErrorResponse {
-    public HttpStatus status;
+    public int status;
     public String error;
 }

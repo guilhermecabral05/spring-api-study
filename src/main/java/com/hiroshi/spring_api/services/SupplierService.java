@@ -1,40 +1,57 @@
 package com.hiroshi.spring_api.services;
-
-import org.springframework.stereotype.Service;
 import com.hiroshi.spring_api.dtos.CreateSupplierDTO;
+import com.hiroshi.spring_api.dtos.SupplierDTO;
 import com.hiroshi.spring_api.entities.SupplierEntity;
+import com.hiroshi.spring_api.exceptions.NotFoundException;
 import com.hiroshi.spring_api.repositories.SupplierRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Optional;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SupplierService {
 
-    @Autowired
-    private SupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
 
-    public SupplierEntity createSupplier(CreateSupplierDTO supplierDTO) {
+    public SupplierService(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
+    }
+
+    public List<SupplierDTO> getAllSuppliers() {
+        return supplierRepository.findAll().stream()
+                .map(SupplierDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public SupplierDTO getSupplierById(UUID id) {
+        return supplierRepository.findById(id)
+                .map(SupplierDTO::new)
+                .orElseThrow(() -> new NotFoundException("Fornecedor não encontrado"));
+    }
+
+    @Transactional
+    public SupplierDTO createSupplier(CreateSupplierDTO dto) {
         SupplierEntity supplier = new SupplierEntity();
-        supplier.setName(supplierDTO.getName());
-        return supplierRepository.save(supplier);
+        supplier.setName(dto.getName());
+        return new SupplierDTO(supplierRepository.save(supplier));
     }
 
-    public Optional<SupplierEntity> getSupplierById(UUID id) {
-        return supplierRepository.findById(id);
+    @Transactional
+    public SupplierDTO updateSupplier(UUID id, CreateSupplierDTO dto) {
+        SupplierEntity supplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Fornecedor não encontrado"));
+
+        supplier.setName(dto.getName());
+        return new SupplierDTO(supplierRepository.save(supplier));
     }
 
-    public Iterable<SupplierEntity> getAllSuppliers() {
-        return supplierRepository.findAll();
-    }
-
-    public SupplierEntity updateSupplier(SupplierEntity supplierEntity) {
-        return supplierRepository.save(supplierEntity);
-    }
-
+    @Transactional
     public void deleteSupplier(UUID id) {
+        if (!supplierRepository.existsById(id)) {
+            throw new RuntimeException("Fornecedor não encontrado");
+        }
         supplierRepository.deleteById(id);
     }
 }
-
