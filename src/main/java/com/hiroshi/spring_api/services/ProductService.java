@@ -9,12 +9,10 @@ import com.hiroshi.spring_api.exceptions.NotFoundException;
 import com.hiroshi.spring_api.repositories.ProductRepository;
 import com.hiroshi.spring_api.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

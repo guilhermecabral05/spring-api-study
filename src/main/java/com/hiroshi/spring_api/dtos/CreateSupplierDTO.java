@@ -1,9 +1,9 @@
 package com.hiroshi.spring_api.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
